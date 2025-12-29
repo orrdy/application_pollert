@@ -1,0 +1,1958 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- no cache -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <!-- no cache -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบฟอร์มสมัครสมาชิก สมาคมช่างกุญแจไทยแห่งประเทศไทย</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/confirmDate/confirmDate.css">
+    <link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/confirmDate/confirmDate.css">
+
+    <style>
+        * {
+            font-family: 'Noto Sans Thai', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Colors sampled from attached logo */
+            --primary: #0b3e6f;
+            /* navy */
+            --accent-red: #d72b2b;
+            /* red */
+            --muted-gray: #9b9b9b;
+            /* gray */
+        }
+
+        .accent-text {
+            color: var(--primary);
+        }
+
+        .accent-bg {
+            background-color: var(--primary);
+            color: #fff;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #fff;
+        }
+
+        .icon-left {
+            padding-left: 2.5rem !important;
+        }
+
+        /* Form label adjustments to ensure consistent size & color */
+        #memberForm label {
+            color: var(--primary) !important;
+            font-size: 0.98rem;
+            font-weight: 300;
+            gap: .5rem;
+        }
+
+        #memberForm .radio-label,
+        #memberForm .checkbox-label {
+            font-size: 0.95rem;
+            color: #111316 !important;
+        }
+
+        .form-icon {
+            color: var(--primary);
+            font-size: 1.05rem;
+            width: 1.25rem;
+            text-align: center;
+        }
+    </style>
+    <style>
+        /* Improve input contrast and focus visibility */
+        #memberForm input[type="text"],
+        #memberForm input[type="email"],
+        #memberForm input[type="tel"],
+        #memberForm input[type="number"],
+        #memberForm input[type="date"],
+        #memberForm textarea,
+        #memberForm select {
+            background-color: #ffffff;
+            /* white for contrast */
+            border: 1px solid rgba(11, 62, 111, 0.12);
+            box-shadow: 0 1px 2px rgba(11, 62, 111, 0.04);
+            transition: box-shadow .12s ease, border-color .12s ease, transform .06s ease;
+            padding: 0.56rem 0.75rem;
+            /* vertical/horizontal padding for better touch targets */
+        }
+
+        #memberForm input:focus,
+        #memberForm textarea:focus,
+        #memberForm select:focus {
+            outline: none;
+            border-color: rgba(11, 62, 111, 0.95);
+            box-shadow: 0 6px 18px rgba(11, 62, 111, 0.12);
+            transform: translateY(-1px);
+        }
+
+        /* Slightly darker input text */
+        #memberForm input,
+        #memberForm textarea {
+            color: #0f172a;
+        }
+
+        /* Make placeholders muted but readable */
+        #memberForm ::placeholder {
+            color: #9ca3af;
+        }
+
+
+
+        /* Ensure disabled/readonly inputs remain legible */
+        #memberForm input[disabled],
+        #memberForm textarea[disabled],
+        #memberForm select[disabled] {
+            background-color: rgba(11, 62, 111, 0.04);
+            color: #6b7280;
+            border-color: rgba(11, 62, 111, 0.12);
+            box-shadow: none;
+        }
+
+
+        input[name="health_chronic_detail"][disabled],
+        input[name="health_disability_detail"][disabled],
+        input[id="expertise_others_text"][disabled] {
+            background-color: #f3f4f6 !important;
+        }
+
+        .signature-pad {
+            width: 100%;
+            min-height: 200px;
+            max-height: 210px;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/locale/th.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/l10n/th.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/plugins/rangePlugin.js"></script>
+    <script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/gh/tanaikech/ResumableUploadForGoogleDrive_js@master/resumableupload_js.min.js">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@5.1.3/dist/signature_pad.umd.min.js"></script>
+    <script src="https://fastly.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://fastly.jsdelivr.net/npm/@pdf-lib/fontkit@1.1.1/dist/fontkit.umd.min.js"></script>
+        <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+<script>
+  // VConsole will be exported to `window.VConsole` by default.
+  var vConsole = new window.VConsole();
+</script>
+    <main class="min-h-screen bg-gray-50 py-10">
+        <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-8">
+            <div class="flex items-center justify-center mb-4">
+                <img src="./logo.png" alt="สมาคมช่างกุญแจไทย" class="w-20 h-20 object-contain mr-4" />
+                <h1 class="text-2xl font-bold mb-0 text-center accent-text">ใบสมัครสมาชิก สมาคมช่างกุญแจไทยแห่งประเทศไทย
+                </h1>
+            </div>
+            <p class="text-base text-gray-600 mb-6 text-center">Application form — กรอกข้อมูลให้ครบถ้วน</p>
+
+            <form id="memberForm" class="space-y-6">
+                <!-- Personal Information -->
+                <input type="hidden" name="application_id" />
+                <section>
+                    <h2 class="text-lg font-semibold mb-3">ข้อมูลส่วนตัว (Personal Information)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-id-badge form-icon"></i>
+                                คำนำหน้า</label>
+                            <select name="prefix" id="prefix" requiredxx
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="นาย">นาย</option>
+                                <option value="นางสาว">นางสาว</option>
+                                <option value="นาง">นาง</option>
+                                <option value="อื่นๆ">อื่นๆ</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-user form-icon"></i>
+                                ชื่อ</label>
+                            <div class="relative mt-1">
+                                <input name="first_name" type="text" requiredxx
+                                    class="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-user form-icon"></i>
+                                นามสกุล</label>
+                            <div class="relative mt-1">
+                                <input name="last_name" type="text" requiredxx
+                                    class="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-calendar-days form-icon"></i>
+                                วัน เดือน ปีเกิด</label>
+                            <div class="relative mt-1">
+                                <input id="date_of_birth" name="date_of_birth" type="text"
+                                    class="date pl-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-cake-candles form-icon"></i>
+                                อายุ (ปี)</label>
+                            <input name="age" type="number" min="0"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" inputmode="decimal" />
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-id-card form-icon"></i>
+                                หมายเลขบัตรประชาชน</label>
+                            <div class="relative mt-1">
+                                <input type="text" name="id_card_number" inputmode="numeric" pattern="[0-9]*"
+                                    minlength="13" maxlength="13"
+                                    class="pl-10 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-flag form-icon"></i>
+                                สัญชาติ</label>
+                            <input name="nationality" type="text"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-praying-hands form-icon"></i>
+                                ศาสนา</label>
+                            <input name="religion" type="text"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Addresses -->
+                <section>
+                    <h2 class="text-lg font-semibold mb-3">ที่อยู่ (Addresses)</h2>
+                    <div class="space-y-8">
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-house form-icon"></i>
+                                ที่อยู่ตามทะเบียนบ้าน</label>
+                            <div class="relative mt-1">
+                                <textarea id="address_registration" name="address_registration" rows="3"
+                                    class="pl-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div
+                                class="flex items-start flex-col justify-start align-start md:flex-row md:justify-between md:items-start">
+                                <label>
+                                    <i class="fa-solid fa-location-dot form-icon"></i>
+                                    ที่อยู่ปัจจุบัน</label>
+                                <label class="flex items-center text-sm text-gray-600">
+                                    <input id="copy_current" type="checkbox" class="mr-2 h-4 w-4" />
+                                    เหมือนที่อยู่ตามทะเบียนบ้าน
+                                </label>
+                            </div>
+                            <textarea id="address_current" name="address_current" rows="3"
+                                class="pl-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+                        </div>
+
+                        <div>
+                            <div class="flex items-start flex-col justify-start align-start md:flex-row md:justify-between md:items-start
+                            ">
+                                <label>
+                                    <i class="fa-solid fa-building form-icon"></i>
+                                    ที่อยู่ร้าน/สถานประกอบการ</label>
+                                <label class="flex items-center text-sm text-gray-600">
+                                    <input id="copy_business" type="checkbox" class="mr-2 h-4 w-4" />
+                                    เหมือนที่อยู่ตามทะเบียนบ้าน
+                                </label>
+                            </div>
+                            <textarea id="address_business" name="address_business" rows="3"
+                                class="pl-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact & Occupation -->
+                <section>
+                    <h2 class="text-lg font-semibold mb-3">ข้อมูลติดต่อ & อาชีพ (Contact & Occupation)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-mobile-screen-button form-icon"></i>
+                                โทรศัพท์มือถือ</label>
+                            <div class="relative mt-1">
+                                <input name="mobile_phone" type="tel"
+                                    class="pl-10 block w-full rounded-md border-gray-300 shadow-sm" inputmode="tel"
+                                    pattern="[0-9]*" minlength="10" maxlength="10" />
+                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-envelope form-icon"></i>
+                                อีเมล์</label>
+                            <div class="relative mt-1">
+                                <input name="email" type="email"
+                                    class="pl-10 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-briefcase form-icon"></i>
+                                ประกอบอาชีพ</label>
+                            <div class="relative mt-1">
+                                <input name="occupation" type="text"
+                                    class="pl-10 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-store form-icon"></i>
+                                ชื่อร้าน / สถานประกอบการ</label>
+                            <div class="relative mt-1">
+                                <input name="business_name" type="text"
+                                    class="pl-10 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-map-marker-alt form-icon"></i>
+                                ที่อยู่ร้าน
+                                (รายละเอียดเพิ่มเติม)</label>
+                            <input name="business_location_details" type="text"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-phone form-icon"></i>
+                                เบอร์โทรร้าน (ถ้ามี)</label>
+                            <input name="business_phone" type="tel" inputmode="tel" pattern="[0-9]*" minlength="10"
+                                maxlength="10" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Document Delivery -->
+                <section>
+                    <label>
+                        <i class="fa-solid fa-truck-fast form-icon"></i>
+                        การจัดส่งเอกสาร (Document Delivery)</label>
+                    <div class="space-y-1 pl-4 mt-2">
+                        <label class="flex items-center radio-label">
+                            <input type="radio" name="delivery_address_type" value="ตามที่อยู่ตามทะเบียนบ้าน" checked
+                                class="mr-2" /> ตามที่อยู่ตามทะเบียนบ้าน
+                        </label>
+                        <label class="flex items-center radio-label">
+                            <input type="radio" name="delivery_address_type" value="ตามที่อยู่ปัจจุบัน" class="mr-2" />
+                            ตามที่อยู่ปัจจุบัน
+                        </label>
+                        <label class="flex items-center radio-label">
+                            <input type="radio" name="delivery_address_type" value="ตามที่อยู่ร้าน / สถานประกอบการ"
+                                class="mr-2" />
+                            ตามที่อยู่ร้าน / สถานประกอบการ
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Health Information -->
+                <section>
+                    <label>
+                        <i class="fa-solid fa-heart-pulse form-icon"></i>
+                        ข้อมูลด้านสุขภาพ (Health Information)</label>
+                    <div class="space-y-3 pl-4 mt-2">
+                        <label class="flex items-center checkbox-label">
+                            <input type="radio" name="health_status" value="ร่างกายครบ 32" class="mr-2" checked />
+                            ร่างกายครบ 32 ไม่มีความพิการที่เป็นอุปสรรคต่อการทำงาน
+                        </label>
+                        <label class="flex items-start flex-col checkbox-label">
+                            <div>
+                                <input type="radio" name="health_status" value="มีโรคประจำตัว" />
+                                มีโรคประจำตัว (ระบุ)
+                            </div>
+                            <input name="health_chronic_detail" type="text"
+                                class="rounded-md border-gray-300 shadow-sm w-full" placeholder="ระบุ" disabled />
+                        </label>
+                        <label class="flex items-start flex-col checkbox-label">
+                            <div>
+                                <input type="radio" name="health_status" value="ร่างกายไม่ครบ 32" />
+                                ร่างกายไม่ครบ 32 (พิการระบุ...) แต่สามารถปฏิบัติงานได้ตามปกติ
+                            </div>
+                            <input name="health_disability_detail" type="text"
+                                class="rounded-md border-gray-300 shadow-sm w-full" placeholder="ระบุ" disabled />
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Experience & Skills -->
+                <section>
+                    <h2 class="text-lg font-semibold mb-3">ประสบการณ์ & ความถนัด (Experience & Skills)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-clock form-icon"></i>
+                                ประสบการณ์ด้านงานกุญแจ
+                                หรือสายงานที่เกี่ยวข้อง (ปี)</label>
+                            <div class="relative mt-1">
+                                <input name="years_experience" type="number" min="0"
+                                    class="pl-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="mt-4">
+                        <label>
+                            <i class="fa-solid fa-wrench form-icon"></i>
+                            ประเภทงานที่ถนัด (เลือกได้
+                            หลายข้อ)</label>
+                        <div class="mt-2 space-y-1 text-base text-gray-800 ml-4">
+                            <label class="flex items-center checkbox-label"><input type="checkbox" name="expertise"
+                                    value="กลุ่มกุญแจบ้าน" class="mr-2"> กลุ่มกุญแจบ้าน</label>
+                            <label class="flex items-center checkbox-label"><input type="checkbox" name="expertise"
+                                    value="กลุ่มกุญแจรถยนต์" class="mr-2"> กลุ่มกุญแจรถยนต์</label>
+                            <label class="flex items-center checkbox-label"><input type="checkbox" name="expertise"
+                                    value="กลุ่มกุญแจมอเตอร์ไซด์" class="mr-2"> กลุ่มกุญแจมอเตอร์ไซด์</label>
+                            <label class="flex items-center checkbox-label"><input type="checkbox" name="expertise"
+                                    value="กลุ่มทำกุญแจดอกใหม่" class="mr-2"> กลุ่มทำกุญแจดอกใหม่</label>
+                            <label class="flex items-center checkbox-label"><input type="checkbox" name="expertise"
+                                    value="รีโมทรถยนต์ / อิมโมบิไลเซอร์" class="mr-2"> รีโมทรถยนต์ /
+                                อิมโมบิไลเซอร์</label>
+                            <label class="flex items-start flex-col justify-start checkbox-label">
+                                <div>
+                                    <input id="expertise_others" type="checkbox" name="expertise" value="อื่นๆ"
+                                        class="mr-2"> กลุ่มอื่นๆ (ระบุ)
+                                </div>
+                                <input id="expertise_others_text" name="expertise_others_text" type="text"
+                                    class="rounded-md border-gray-300 shadow-sm w-full" placeholder="ระบุ" disabled />
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- requiredxx Documents -->
+                <section>
+                    <h2 class="text-lg font-semibold mb-3">เอกสารประกอบการสมัคร (requiredxx Documents)</h2>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="flex-1">
+                                <label>
+                                    <i class="fa-solid fa-id-card-clip form-icon"></i>
+                                    สำเนาบัตรประชาชน</label>
+                                <input type="file" name="copy_id_card" accept="image/*,.pdf"
+                                    onchange="previewFile(event, 'preview_id_card')" accept="image/*,.pdf"
+                                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border file:border-gray-300 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    requiredxx />
+                            </div>
+                            <div id="preview_id_card" data-preview="copy_id_card"
+                                class="hidden w-10 h-10 border rounded-md flex items-center justify-center text-sm text-gray-500 preview-container">
+                                No file</div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="flex-1">
+                                <label>
+                                    <i class="fa-solid fa-house-chimney form-icon"></i>
+                                    สำเนาทะเบียนบ้าน</label>
+                                <input type="file" name="copy_house_reg" accept="image/*,.pdf"
+                                    onchange="previewFile(event, 'preview_house_reg')" accept="image/*,.pdf"
+                                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border file:border-gray-300 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    requiredxx />
+                            </div>
+                            <div id="preview_house_reg" data-preview="copy_house_reg"
+                                class="hidden w-10 h-10 border rounded-md flex items-center justify-center text-sm text-gray-500 preview-container">
+                                No file</div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="flex-1">
+                                <label>
+                                    <i class="fa-solid fa-camera form-icon"></i>
+                                    รูปถ่ายหน้าตรง</label>
+                                <input type="file" name="portrait_photo" accept="image/*"
+                                    onchange="previewFile(event, 'preview_photo')" accept="image/*"
+                                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border file:border-gray-300 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    requiredxx />
+                            </div>
+                            <div id="preview_photo" data-preview="portrait_photo"
+                                class="hidden w-10 h-10 border rounded-md flex items-center justify-center text-sm text-gray-500 preview-container">
+                                No file</div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="flex-1">
+                                <label>
+                                    <i class="fa-solid fa-briefcase form-icon"></i>
+                                    หลักฐานประกอบอาชีพ
+                                    (ถ้ามี)</label>
+                                <input type="file" name="occupation_proof" accept="image/*,.pdf"
+                                    onchange="previewFile(event, 'preview_occupation')" accept="image/*,.pdf"
+                                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border file:border-gray-300 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                            </div>
+                            <div id="preview_occupation" data-preview="occupation_proof"
+                                class="hidden w-10 h-10 border rounded-md flex items-center justify-center text-sm text-gray-500">
+                                No file</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Beneficiary -->
+                <section>
+                    <h2 class="text-lg font-semibold mb-1">ผู้รับผลประโยชน์ (Beneficiary)</h2>
+                    <p class="text-base text-gray-600 mb-3">กรณีที่ ข้าพเจ้าเสียชีวิต</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-user form-icon"></i>
+                                ชื่อ-สกุล</label>
+                            <div class="relative mt-1">
+                                <input name="beneficiary_name" type="text"
+                                    class="pl-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-phone form-icon"></i>
+                                เบอร์โทรศัพท์</label>
+                            <div class="relative mt-1">
+                                <input name="beneficiary_phone" type="tel"
+                                    class="pl-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                                    inputmode="numeric" pattern="[0-9]*" minlength="10" maxlength="10" />
+                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-users form-icon"></i>
+                                ความสัมพันธ์</label>
+                            <input name="beneficiary_relationship" type="text"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-id-card form-icon"></i>
+                                หมายเลขบัตรประชาชน</label>
+                            <input name="beneficiary_id_card" type="text"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" inputmode="numeric"
+                                pattern="[0-9]*" minlength="13" maxlength="13" />
+                        </div>
+                        <div class="md:col-span-2">
+                            <label>
+                                <i class="fa-solid fa-map-location-dot form-icon"></i>
+                                ที่อยู่</label>
+                            <div class="relative mt-1">
+                                </span>
+                                <textarea name="beneficiary_address" rows="3"
+                                    class="pl-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Fees (static) -->
+                <section>
+                    <h2 class="text-lg font-semibold mb-3">ค่าธรรมเนียม (Fees)</h2>
+                    <div class="prose text-base text-red-800">
+                        <p>1. ค่าขึ้นทะเบียนสมาชิก 500 บาท และค่าบำรุงสมาชิก ปีละ 2,000 บาท รวมค่าสมัครสมาชิก 2,500 บาท
+                        </p>
+                        <p>2. การสมัครเป็นสมาชิกสมาคมฯ จะมีผลสมบูรณ์ต่อเมื่อเป็นไปตามเงื่อนไขของสมาคมฯ</p>
+                    </div>
+                </section>
+
+                <!-- Signatures & Submission -->
+                <section>
+                    <h2 class="text-lg font-semibold mb-3">การยืนยันและลายเซ็น (Signatures & Submission)</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-pen form-icon"></i>
+                                ลงชื่อผู้สมัคร (ลายเซ็น)</label>
+                            <p class="text-base text-gray-600 my-2">ข้าพเจ้าขอสมัครเป็นสมาชิกสมาคมฯ
+                                และยินยอมปฏิบัติตามกฎระเบียบทุกประการ</p>
+                            <div class="mb-2 space-y-2">
+                                <canvas id="applicant_signature"
+                                    class="border rounded-md w-full h-60 signature-pad"></canvas>
+                                <div class="flex justify-end">
+                                    <button type="button" id="clear_applicant_signature"
+                                        class="px-3 py-1 bg-gray-200 rounded-md text-sm clear-signature">ล้างลายเซ็น</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4 border border-gray-300 rounded-md p-4 mt-10" id="for_officer">
+                        <h2 class="text-lg font-semibold mb-3">
+                            การตรวจสอบและอนุมัติใบสมัคร (สำหรับเจ้าหน้าที่สมาคมฯ)
+                        </h2>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-id-card form-icon"></i>
+                                เลขที่สมาชิก
+                                (สำหรับเจ้าหน้าที่)</label>
+                            <input name="officer_id" type="text"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-check form-icon"></i>
+                                สถานะการสมัคร</label>
+                            <div class="flex items-center space-x-4 mt-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="application_status" value="approved" class="mr-2">
+                                    อนุมัติ
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="application_status" value="rejected" class="mr-2">
+                                    ไม่อนุมัติ
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-circle-exclamation form-icon"></i>
+                                เหตุผล (กรณีไม่อนุมัติ)</label>
+                            <textarea name="reviewer_officer" rows="3"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+                        </div>
+                        <div>
+                            <label>
+                                <i class="fa-solid fa-pen form-icon"></i>
+                                สำหรับเจ้าหน้าที่: ผู้รับเรื่อง
+                                (ลายเซ็น)</label>
+                            <div class="mb-2 space-y-2">
+                                <canvas id="officer_signature"
+                                    class="border rounded-md w-full h-60 signature-pad"></canvas>
+                                <div class="flex justify-end">
+                                    <button type="button" id="clear_officer_signature"
+                                        class="px-3 py-1 bg-gray-200 rounded-md text-sm clear-signature hidden">ล้างลายเซ็น</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="flex items-center justify-end space-x-3">
+                    <button type="reset" class="px-4 py-2 bg-gray-200 rounded-md">รีเซ็ต</button>
+                    <button type="submit" class="px-4 py-2 btn-primary rounded-md">ส่งใบสมัคร</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <input type="file" id="temp-imgs" hidden />
+    <script>
+        var isApproved = false;
+        var applicantSignaturePad, officerSignaturePad, resizeCanvas;
+        // keep previous init/third-party usage
+        window.addEventListener('DOMContentLoaded', (event) => {
+            NProgress.configure({ showSpinner: false, trickleSpeed: 200, minimum: 0.08, easing: 'ease', speed: 500, parent: 'body' });
+            NProgress.start();
+
+        });
+
+        window.addEventListener('load', (event) => {
+            moment.locale('th');
+            flatpickr.localize(flatpickr.l10ns.th);
+            flatpickr('#date_of_birth', {
+                altInput: true,
+                altFormat: 'd/m/Y',
+                dateFormat: 'Y-m-d',
+                onChange: function (selectedDates, dateStr, instance) {
+                    if (selectedDates.length > 0) {
+                        let birthDate = selectedDates[0];
+                        let age = moment().diff(moment(birthDate), 'years');
+                        console.log("🚀 ~ age:", age)
+                        document.querySelector('input[name="age"]').value = age;
+                    }
+                }
+            });
+
+            // INIT signature pad
+            const applicantCanvas = document.getElementById('applicant_signature');
+            applicantSignaturePad = new SignaturePad(applicantCanvas, {
+                backgroundColor: "rgb(255,255,255,0)",
+                penColor: "rgb(0,0,255)",
+            });
+            const officerCanvas = document.getElementById('officer_signature');
+            officerSignaturePad = new SignaturePad(officerCanvas, {
+                backgroundColor: "rgb(255,255,255,0)",
+                penColor: "rgb(0,0,255)",
+            });
+
+            SignaturePad.prototype.removeBlanks = function () {
+                var imgWidth = this._ctx.canvas.width;
+                var imgHeight = this._ctx.canvas.height;
+                var imageData = this._ctx.getImageData(0, 0, imgWidth, imgHeight),
+                    data = imageData.data,
+                    getAlpha = function (x, y) {
+                        return data[(imgWidth * y + x) * 4 + 3]
+                    },
+                    scanY = function (fromTop) {
+                        var offset = fromTop ? 1 : -1;
+                        // loop through each row
+                        for (var y = fromTop ? 0 : imgHeight - 1; fromTop ? (y < imgHeight) : (y > -1); y += offset) {
+                            // loop through each column
+                            for (var x = 0; x < imgWidth; x++) {
+                                if (getAlpha(x, y)) {
+                                    return y;
+                                }
+                            }
+                        }
+                        return null; // all image is white
+                    },
+                    scanX = function (fromLeft) {
+                        var offset = fromLeft ? 1 : -1;
+                        // loop through each column
+                        for (var x = fromLeft ? 0 : imgWidth - 1; fromLeft ? (x < imgWidth) : (x > -1); x += offset) {
+                            // loop through each row
+                            for (var y = 0; y < imgHeight; y++) {
+                                if (getAlpha(x, y)) {
+                                    return x;
+                                }
+                            }
+                        }
+                        return null; // all image is white
+                    };
+                var cropTop = scanY(true),
+                    cropBottom = scanY(false),
+                    cropLeft = scanX(true),
+                    cropRight = scanX(false);
+                var relevantData = this._ctx.getImageData(cropLeft, cropTop, cropRight - cropLeft, cropBottom - cropTop);
+                this.canvas.width = cropRight - cropLeft;
+
+                this.canvas.height = cropBottom - cropTop;
+                this._ctx.clearRect(0, 0, cropRight - cropLeft, cropBottom - cropTop);
+                this._ctx.putImageData(relevantData, 0, 0);
+            };
+            $('.clear-signature').on('click', function () {
+                event.preventDefault()
+                let id = $(this).attr('id').replace('clear_', '')
+                console.log("🚀 ~ id:", id)
+                if (id == 'applicant_signature') {
+                    applicantSignaturePad.clear()
+                } else if (id == 'officer_signature') {
+                    officerSignaturePad.clear()
+                }
+                // resizeCanvas()
+            })
+            let applicant_canvas = document.getElementById('applicant_signature');
+            let officer_canvas = document.getElementById('officer_signature');
+            resizeCanvas = function () {
+                console.log('resizing canvases');
+                var ratio = Math.max(window.devicePixelRatio || 1, 1);
+                let temp_data = applicantSignaturePad.toData();
+                applicant_canvas.width = applicant_canvas.offsetWidth * ratio;
+                // if (ratio > 2) canvas.height = canvas.offsetHeight * ratio * 1.5;
+                // else 
+                applicant_canvas.height = applicant_canvas.offsetHeight * ratio;
+                applicant_canvas.getContext("2d").scale(ratio, ratio);
+                applicantSignaturePad.clear(); // otherwise isEmpty() might return incorrect value
+                applicantSignaturePad.fromData(temp_data);
+
+                temp_data = officerSignaturePad.toData();
+                officer_canvas.width = officer_canvas.offsetWidth * ratio;
+                // if (ratio > 2) canvas2.height = canvas2.offsetHeight * ratio * 1.5;
+                // else 
+                officer_canvas.height = officer_canvas.offsetHeight * ratio;
+                officer_canvas.getContext("2d").scale(ratio, ratio);
+                officerSignaturePad.clear(); // otherwise isEmpty() might return incorrect value
+                officerSignaturePad.fromData(temp_data);
+            }
+            // Debounce function to limit how often resizeCanvas is called
+            function debounce(func, wait) {
+                let timeout;
+                return function (...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), wait);
+                };
+            }
+            window.addEventListener("resize", debounce(resizeCanvas, 200));
+            resizeCanvas();
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('approved') && params.get('approved') !== '') {
+                isApproved = true;
+                document.getElementById('for_officer').classList.remove('hidden');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'รหัสผ่าน',
+                    html: 'ท่านกำลังเข้าใช้งานในฐานะเจ้าหน้าที่<br>กรุณากรอกรหัสผ่านเพื่อยืนยันตัวตน',
+                    input: 'password',
+                    inputAttributes: {
+                        autocapitalize: 'off',
+                        autocorrect: 'off'
+                    },
+                    confirmButtonText: '<i class="fa fa-check"></i> ยืนยัน',
+                    allowOutsideClick: false,
+                    customClass: {
+                        popup: 'rounded-3xl shadow-2xl',
+                        title: 'text-gray-900 font-bold',
+                        input: 'border border-gray-300 rounded-md shadow-sm p-2 mt-2 overflow-x-auto'
+                    },
+                    preConfirm: (password) => {
+                        if (!password || password.trim() === '') {
+                            Swal.showValidationMessage(
+                                `กรุณากรอกรหัสผ่าน`
+                            );
+                            return;
+                        }
+                        Swal.update({
+                            text: 'กำลังตรวจสอบรหัสผ่าน...',
+                        });
+                        Swal.showLoading();
+                        return new Promise((resolve, reject) => {
+                            callScript({
+                                func: 'verifyOfficerPassword',
+                                params: { password: password, appId: params.get('approved') || '' },
+                                onSuccess: (result) => {
+                                    if (result.success) {
+                                        resolve(result);
+                                    } else {
+                                        Swal.hideLoading();
+                                        Swal.showValidationMessage(
+                                            `รหัสผ่านไม่ถูกต้อง โปรดลองอีกครั้ง`
+                                        );
+                                    }
+                                },
+                                onFailure: (error) => {
+                                    console.error('Error verifying password:', error);
+                                    Swal.hideLoading();
+                                    Swal.showValidationMessage(
+                                        `เกิดข้อผิดพลาดในการตรวจสอบรหัสผ่าน โปรดลองอีกครั้ง`
+                                    );
+                                }
+                            });
+                        });
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        console.log("🚀 ~ result:", result)
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'ยืนยันตัวตนสำเร็จ',
+                            confirmButtonText: 'ดำเนินการต่อ',
+                            customClass: {
+                                popup: 'rounded-3xl shadow-2xl',
+                                title: 'text-gray-900 font-bold',
+                            },
+                            timer: 1500,
+                            timerProgressBar: true,
+                        });
+                        populatedApplicationData(result.value.applicationData);
+                    } else {
+                        window.location.href = window.location.pathname;
+                    }
+                });
+            } else {
+                document.getElementById('for_officer').classList.add('hidden');
+            }
+            $('#prefix').on('change', function () {
+                const prefix = $(this).val();
+                if (prefix === 'อื่นๆ') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'คำนำหน้าอื่นๆ',
+                        text: 'กรุณากรอกคำนำหน้า',
+                        input: 'text',
+                        confirmButtonText: '<i class="fa fa-check"></i> ตกลง',
+                        customClass: {
+                            popup: 'rounded-3xl shadow-2xl',
+                            title: 'text-gray-900 font-bold',
+                            input: 'border border-gray-300 rounded-md shadow-sm p-2 mt-2 overflow-x-auto'
+                        }
+                    }).then(({ isConfirmed, value }) => {
+                        if (isConfirmed && value) {
+                            const optionExists = $('#prefix option[value="' + value + '"]').length > 0;
+                            optionExists ? $('#prefix').val(value) : $('#prefix').append(new Option(value, value, true, true));
+                        }
+                    });
+                }
+            });
+
+            $('input[name="health_status"]').on('change', function () {
+                const status = $(this).val();
+                const chronicDetail = $('input[name="health_chronic_detail"]');
+                const disabilityDetail = $('input[name="health_disability_detail"]');
+
+                chronicDetail.val('').prop('disabled', status !== 'มีโรคประจำตัว').prop('required', status === 'มีโรคประจำตัว');
+                disabilityDetail.val('').prop('disabled', status !== 'ร่างกายไม่ครบ 32').prop('required', status === 'ร่างกายไม่ครบ 32');
+            });
+
+            $('input[name="expertise"]').on('change', function () {
+                const othersCheckbox = $('#expertise_others');
+                const othersText = $('#expertise_others_text');
+                if (!othersCheckbox.is(':checked')) {
+                    othersText.val('').prop('disabled', true).prop('required', false);
+                } else {
+                    othersText.prop('disabled', false).prop('required', true);
+                }
+            });
+
+            $('#memberForm').on('reset', function () {
+                setTimeout(() => {
+                    applicantSignaturePad.clear();
+                    officerSignaturePad.clear();
+                    $('.preview-container').each(function () {
+                        $(this).html('No file').addClass('hidden');
+                    });
+
+                    // scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 50);
+            });
+            NProgress.done();
+        });
+
+        // Copy address handlers
+        document.getElementById('copy_current').addEventListener('change', function (e) {
+            const src = document.getElementById('address_registration').value;
+            const dst = document.getElementById('address_current');
+            if (this.checked) dst.value = src; else dst.value = '';
+        });
+        document.getElementById('copy_business').addEventListener('change', function (e) {
+            const src = document.getElementById('address_registration').value;
+            const dst = document.getElementById('address_business');
+            if (this.checked) dst.value = src; else dst.value = '';
+        });
+
+        $('#copy_store').on('change', function (e) {
+            const src = $(this).data('source-element');
+            const dst = document.getElementsByName('business_location_details')[0];
+            if (this.checked && src) dst.value = document.getElementById(src).value; else dst.value = '';
+        });
+
+        // toggle expertise others input based on checkbox
+        const expertiseOthers = document.getElementById('expertise_others');
+        const expertiseOthersText = document.getElementById('expertise_others_text');
+        expertiseOthers.addEventListener('change', () => { expertiseOthersText.disabled = !expertiseOthers.checked; if (!expertiseOthers.checked) expertiseOthersText.value = ''; });
+        expertiseOthersText.disabled = !expertiseOthers.checked;
+
+        // Form submit
+        document.getElementById('memberForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            if (!isApproved) {
+                if (applicantSignaturePad.isEmpty()) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'กรุณาเซ็นลายเซ็นผู้สมัคร',
+                        text: 'โปรดลงลายเซ็นในช่องลายเซ็นผู้สมัครก่อนส่งใบสมัคร',
+                        customClass: {
+                            popup: 'rounded-3xl shadow-2xl',
+                            title: 'text-gray-900 font-bold',
+                        }
+                    });
+                    return;
+                }
+            } else {
+                if (officerSignaturePad.isEmpty()) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'กรุณาเซ็นลายเซ็นเจ้าหน้าที่',
+                        customClass: {
+                            popup: 'rounded-3xl shadow-2xl',
+                            title: 'text-gray-900 font-bold',
+                        }
+                    });
+                    return;
+                }
+            }
+
+            let files = $('input[type="file"]').not('#temp-imgs').toArray().map(input => {
+                if(input.files && input.files.length > 0) {
+                    return null;
+                }
+                if(input.name === 'copy_id_card') return 'กรุณาแนบสำเนาบัตรประชาชน';
+                if(input.name === 'copy_house_reg') return 'กรุณาแนบสำเนาทะเบียนบ้าน';
+                if(input.name === 'portrait_photo') return 'กรุณาแนบรูปถ่ายหน้าตรง';
+                return null;
+            }).filter(f => f)
+            if (files.length > 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'ยังไม่ได้แนบไฟล์เอกสาร',
+                    html: files.map(f => `<div class="text-left text-red-700">- ${f}</div>`).join(''),
+                    customClass: {
+                        popup: 'rounded-3xl shadow-2xl',
+                        title: 'text-gray-900 font-bold',
+                    }
+                })
+                return;
+            }
+
+            if (!isApproved) {
+                Swal.fire({
+                    icon: 'question',
+                    title: 'ยืนยันการส่งใบสมัคร หรือไม่?',
+                    html: '<span  class="block mb-2 text-red-700">กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนยืนยันการส่งใบสมัคร<br><br><u>เมื่อส่งใบสมัครแล้วจะไม่สามารถแก้ไขข้อมูลได้</u></span>',
+                    width: '600px',
+                    showCancelButton: true,
+                    confirmButtonText: '<i class="fa fa-check-circle"></i> ยืนยัน',
+                    cancelButtonText: 'ตรวจสอบข้อมูลอีกครั้ง',
+                    customClass: {
+                        popup: 'rounded-3xl shadow-2xl',
+                        title: 'text-gray-900 font-bold',
+                    }
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        // proceed to upload files and submit
+                        await proceedSubmitApplication();
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'question',
+                    title: 'ยืนยันการบันทึกผลการสมัคร หรือไม่?',
+                    html: '<span  class="block mb-2 text-red-700">กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนยืนยันการบันทึกผลการสมัคร<br><br><u>เมื่อบันทึกผลการสมัครแล้วจะไม่สามารถแก้ไขข้อมูลได้</u></span>',
+                    width: '600px',
+                    showCancelButton: true,
+                    confirmButtonText: '<i class="fa fa-check-circle"></i> ยืนยัน',
+                    cancelButtonText: 'ตรวจสอบข้อมูลอีกครั้ง',
+                    customClass: {
+                        popup: 'rounded-3xl shadow-2xl',
+                        title: 'text-gray-900 font-bold',
+                    }
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        // proceed to upload files and submit
+                        await proceedSubmitApproval();
+                    }
+                })
+            }
+        });
+        async function proceedSubmitApplication() {
+            let formData = $('#memberForm').serializeArray();
+            let files = $('input[type="file"]').not('#temp-imgs').toArray().map(input => {
+                return { inputName: input.name, file: input.files[0] };
+            }).filter(f => f.file);
+            console.log("🚀 ~ files:", files)
+            let dataTransfer = new DataTransfer();
+            let tempFiles = $('#temp-imgs')[0].files;
+
+            // add files into DataTransfer asynchronously (avoid duplicates with tempFiles)
+            await (async () => {
+                const existingNames = new Set(Array.from(tempFiles || []).map(f => f.name));
+                for (const fileObj of files) {
+                    const name = fileObj.file.name;
+                    if (existingNames.has(name)) continue;
+                    if (Array.from(dataTransfer.files).some(f => f.name === name)) continue;
+                    try {
+                        await new Promise((resolve) => {
+                            const fr = new FileReader();
+                            fr.onload = () => {
+                                dataTransfer.items.add(fileObj.file);
+                                resolve();
+                            };
+                            fr.onerror = () => {
+                                console.error('Error loading file:', name);
+                                resolve(); // continue on error
+                            };
+                            fr.readAsDataURL(fileObj.file);
+                        });
+                    } catch (err) {
+                        console.error('File read failed:', name, err);
+                    }
+                }
+            })();
+            console.log("🚀 ~ tempFiles:", tempFiles)
+            let signatures = {
+                applicant_signature: applicantSignaturePad.toData(),
+                officer_signature: officerSignaturePad.toData()
+            }
+            $('#temp-imgs')[0].files = dataTransfer.files;
+            Swal.fire({
+                title: 'กำลังอัพโหลดข้อมูล...',
+                text: 'โปรดรอสักครู่ ขณะกำลังส่งใบสมัครของท่าน',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+                customClass: {
+                    popup: 'rounded-3xl shadow-2xl',
+                    title: 'text-gray-900 font-bold',
+                }
+            });
+            let applicationId = generateUniqueId()
+            let uploadFiles = await uploadToGoogleDrive(applicationId, $('#temp-imgs'));
+            console.log("🚀 ~ uploadFiles:", uploadFiles)
+            formData.push({ name: 'folder_id', value: uploadFiles['folderId'] || '' });
+            if (uploadFiles) {
+                uploadFiles = uploadFiles.files.map(f => {
+                    let inputName = files.find(file => file.file.name === f.name).inputName;
+                    return { inputName: inputName, fileId: f.id };
+                }).reduce((acc, curr) => {
+                    acc[curr.inputName] = 'https://lh3.googleusercontent.com/d/' + curr.fileId;
+                    return acc;
+                }, {});
+            }
+            formData.push({ name: 'application_id', value: applicationId });
+            formData.push({ name: 'is_approved', value: isApproved });
+            formData.push({ name: 'uploaded_files', value: JSON.stringify(uploadFiles) });
+            formData.push({ name: 'signatures', value: JSON.stringify(signatures) });
+            Swal.fire({
+                iconHtml: "<i class='fa fa-cloud-upload-alt'></i>",
+                title: 'กำลังส่งใบสมัคร...',
+                text: 'โปรดรอสักครู่ ขณะกำลังส่งใบสมัครของท่าน',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+                customClass: {
+                    popup: 'rounded-3xl shadow-2xl',
+                    title: 'text-gray-900 font-bold',
+                    icon: 'text-blue-600 border-none'
+                }
+            });
+            formData = formData.reduce((acc, curr) => {
+                acc[curr.name] = curr.value;
+                return acc;
+            }, {});
+            formData.expertise = $('input[name="expertise"]:checked').map(function () {
+                if (this.value === 'อื่นๆ') {
+                    return 'อื่นๆ(' + $('#expertise_others_text').val() + ')';
+                }
+                return this.value;
+            }).get().join(', ');
+            console.log("🚀 ~ formData:", formData)
+
+            callScript({
+                func: 'submitMemberApplication',
+                params: formData,
+                onSuccess: (result) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'ส่งใบสมัครเรียบร้อย',
+                        html: `
+                            <div class="text-center">
+                                <h3 class="text-lg font-semibold text-gray-800">ขอบคุณที่สมัครเป็นสมาชิกสมาคมฯ</h3>
+                                <p class="mt-4 text-base text-gray-600">
+                                    เราได้รับใบสมัครของคุณเรียบร้อยแล้ว และกำลังดำเนินการตรวจสอบข้อมูลของคุณ
+                                    <br>ผลการสมัครจะถูกแจ้งให้ทราบทาง <span class="font-medium text-gray-800">อีเมล</span> ภายใน <span class="font-medium text-gray-800">7 วันทำการ</span>.
+                                </p>
+                                <p class="mt-6 text-base text-gray-600">
+                                    หากคุณมีคำถามเพิ่มเติม กรุณาติดต่อผู้ดูแลระบบ.
+                                </p>
+                            </div>
+                        `,
+                        customClass: {
+                            popup: 'rounded-3xl shadow-2xl',
+                            title: 'text-gray-900 font-bold',
+                        }
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                },
+                onFailure: (error) => {
+                    console.error('Error submitting application:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'เกิดข้อผิดพลาดในการส่งใบสมัคร',
+                        text: 'โปรดลองอีกครั้งในภายหลัง หากปัญหายังเกิดขึ้น กรุณาติดต่อเจ้าหน้าที่',
+                        customClass: {
+                            popup: 'rounded-3xl shadow-2xl',
+                            title: 'text-gray-900 font-bold',
+                        }
+                    });
+                }
+            });
+
+        }
+
+
+        async function proceedSubmitApproval() {
+            let formData = {
+                application_id: $('input[name="application_id"]').val(),
+                officer_id: $('input[name="officer_id"]').val(),
+                application_status: $('input[name="application_status"]:checked').val(),
+                reviewer_officer: $('textarea[name="reviewer_officer"]').val(),
+                approval_date: moment().format('YYYY-MM-DD'),
+            }
+            let signatures = {
+                applicant_signature: applicantSignaturePad.toData(),
+                officer_signature: officerSignaturePad.toData()
+            }
+            // formData.push({ name: 'is_approved', value:  });
+            // formData.push({ name: 'signatures', value: JSON.stringify(signatures) });
+            formData.signatures = JSON.stringify(signatures);
+            Swal.fire({
+                iconHtml: "<i class='fa fa-cloud-upload-alt'></i>",
+                title: 'กำลังบันทึกผลการสมัคร...',
+                text: 'โปรดรอสักครู่ ขณะกำลังบันทึกผลการสมัคร',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+                customClass: {
+                    popup: 'rounded-3xl shadow-2xl',
+                    title: 'text-gray-900 font-bold',
+                    icon: 'text-blue-600 border-none'
+                }
+            });
+            console.log("🚀 ~ formData:", formData)
+
+            let promises = [
+                new Promise((resolve, reject) => {
+                    callScript({
+                        func: 'approveMemberApplication',
+                        params: formData,
+                        onSuccess: (result) => {
+                            resolve();
+                        },
+                        onFailure: (error) => {
+                            console.error('Error submitting application approval:', error);
+                            reject(error);
+                        }
+                    });
+                })
+            ]
+
+            if (formData.application_status === 'approved') {
+                let pdf_data_url = await generatePDF();
+                promises.push(new Promise((resolve, reject) => {
+                    callScript({
+                        func: 'uploadApprovalPDF',
+                        params: {
+                            application_id: formData.application_id,
+                            pdf_data_url: pdf_data_url
+                        },
+                        onSuccess: (result) => {
+                            formData.approval_pdf_url = result.pdf_url;
+                            resolve();
+                        },
+                        onFailure: (error) => {
+                            console.error('Error uploading approval PDF:', error);
+                            reject(error);
+                        }
+                    });
+                }))
+            }
+            Promise.all(promises)
+                .then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'บันทึกผลการสมัครเรียบร้อย',
+                        customClass: {
+                            popup: 'rounded-3xl shadow-2xl',
+                            title: 'text-gray-900 font-bold',
+                        }
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                })
+                .catch((error) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'เกิดข้อผิดพลาดในการบันทึกผลการสมัคร',
+                        text: 'โปรดลองอีกครั้งในภายหลัง หากปัญหายังเกิดขึ้น กรุณาติดต่อเจ้าหน้าที่',
+                        customClass: {
+                            popup: 'rounded-3xl shadow-2xl',
+                            title: 'text-gray-900 font-bold',
+                        }
+                    });
+                });
+        };
+
+        function generateUniqueId() {
+            const timestamp = Date.now().toString(36);
+            const randomNum = Math.floor(Math.random() * 1e6).toString(36);
+            return `${timestamp}-${randomNum}`;
+        }
+
+        function populatedApplicationData(data) {
+            $('#memberForm').find('input, select, textarea').prop('disabled', true);
+
+            // $('#memberForm')[0].reset();
+            if (!data) return;
+            for (const [key, value] of Object.entries(data)) {
+                const field = document.getElementsByName(key)[0];
+                if (field) {
+                    if (field.type === 'checkbox') {
+                        if (Array.isArray(value)) {
+                            value.forEach(val => {
+                                if (val.startsWith('อื่นๆ(') && val.endsWith(')')) {
+                                    const othersText = val.slice(4, -1);
+                                    $('#expertise_others').prop('checked', true);
+                                    $('#expertise_others_text').val(othersText);
+                                    val = 'อื่นๆ';
+                                }
+                                const checkbox = document.querySelector(`input[name="${key}"][value="${val}"]`);
+                                if (checkbox) checkbox.checked = true;
+                            });
+                        } else {
+                            field.checked = value;
+                        }
+                    } else if (field.type === 'radio') {
+                        const radio = document.querySelector(`input[name="${key}"][value="${value}"]`);
+                        if (radio) radio.checked = true;
+                    } else {
+                        if (key === 'date_of_birth') {
+                            $('#date_of_birth')[0]._flatpickr.setDate(value);
+                        } else if (key === 'expertise') {
+                            const expertiseValues = value.split(', ').map(v => {
+                                if (v.startsWith('อื่นๆ(') && v.endsWith(')')) {
+                                    const othersText = v.slice(4, -1);
+                                    $('#expertise_others').prop('checked', true);
+                                    $('#expertise_others_text').prop('disabled', false).val(othersText);
+                                    return 'อื่นๆ';
+                                }
+                                return v;
+                            });
+                            expertiseValues.forEach(val => {
+                                const checkbox = document.querySelector(`input[name="expertise"][value="${val}"]`);
+                                if (checkbox) checkbox.checked = true;
+                            });
+                        } else if ($(field).attr('type') === 'file' && value) {
+                            renderFilePreview(value, key);
+                        } else {
+                            field.value = value;
+                        }
+                    }
+                }
+            }
+            $('input[name="application_status"][value="' + (data.is_approved ? 'approved' : 'rejected') + '"]').prop('checked', true).trigger('change');
+            let signatures = typeof data.signatures === 'string' ? JSON.parse(data.signatures) : data.signatures;
+            if (signatures.applicant_signature && signatures.applicant_signature.length > 0) {
+                console.log('setting applicant signature', signatures.applicant_signature);
+                applicantSignaturePad.fromData(signatures.applicant_signature);
+                applicantSignaturePad.off();
+                $('#clear_applicant_signature').addClass('hidden');
+            }
+            if (signatures.officer_signature && signatures.officer_signature.length > 0) {
+                officerSignaturePad.fromData(signatures.officer_signature);
+                officerSignaturePad.off();
+                if (data.is_approved === true) {
+                    $('button[type="reset"]').parent().html(`
+                    <p class="text-xl text-gray-600">
+                        <i class="fa fa-check-circle text-green-600 mr-2"></i>
+                        ใบสมัครนี้ได้รับการอนุมัติแล้ว</p>
+                    <a href="https://drive.google.com/uc?export=view&id=${data.approval_pdf_url.split('/')[5]}&openExternalBrowser=true" id="download_pdf" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                        ดาวน์โหลดไฟล์ PDF
+                    </a>
+                `)
+                } else {
+                    $('button[type="reset"]').parent().html(`
+                    <p class="text-xl text-gray-600">
+                        <i class="fa fa-times-circle text-red-600 mr-2"></i>
+                        ใบสมัครนี้ได้รับการปฏิเสธแล้ว</p>
+                `);
+                }
+                $('#clear_officer_signature').addClass('hidden');
+                $('#for_officer').find('input, select, textarea').prop('disabled', true);
+            } else {
+                $('#for_officer').find('input, select, textarea').prop('disabled', false);
+                $('button[type="submit"]').prop('disabled', false).html('<i class="fa fa-save mr-2"></i>บันทึกผลการสมัคร');
+                if (isApproved) {
+                    $('[name="officer_id"]').prop('required', true);
+                    $('[name="application_status"]').prop('required', true).on('change', function () {
+                        const status = $(this).val();
+                        if (status === 'rejected') {
+                            $('[name="reviewer_officer"]').prop('required', true).prop('disabled', false);
+                        } else {
+                            $('[name="reviewer_officer"]').prop('required', false).prop('disabled', true).val('');
+                        }
+                    });
+                    $('#memberForm').append('<input type="hidden" name="submission_date" value="' + data.submission_date + '" />');
+                    $('#memberForm').append('<input type="hidden" name="approval_date" value="' + moment().format('YYYY-MM-DD') + '" />');
+                    // re init officer signature pad
+                    officerSignaturePad.off();
+                    officerSignaturePad.on();
+                    $('#clear_officer_signature').removeClass('hidden');
+                }
+            }
+
+
+
+            setTimeout(() => {
+                $('html, body').animate({
+                    scrollTop: $('body').offset().top
+                }, 500);
+            }, 300);
+
+        }
+
+    </script>
+    <script>
+        function previewFile(event, previewId) {
+            const file = event.target.files[0];
+            const previewElement = document.getElementById(previewId);
+
+            if (file) {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewElement.innerHTML = `<img src="${e.target.result}" alt="Preview" onclick="showPreview('${e.target.result}')" class="w-full h-full object-cover rounded-md" />`;
+                        previewElement.classList.remove('hidden');
+                        if (previewId === 'preview_photo') {
+                            console.log("🚀 ~ file.type:", file.type.split('/')[1])
+                            $('#memberForm').append(`<a href="${e.target.result}" data-for="portrait_photo" data-type="${file.type.split('/')[1]}" class="hidden"></a>`);
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function (e) {
+                        previewElement.innerHTML = `<img src="https://img.icons8.com/color/50/pdf.png" alt="Preview" onclick="showPreview('${e.target.result}', 'pdf')" class="w-full h-full object-cover rounded-md" />`;
+                        previewElement.classList.remove('hidden');
+                    }
+                }
+            } else {
+                previewElement.textContent = 'No file';
+            }
+        }
+
+        function renderFilePreview(fileUrl, inputName) {
+            const parent = $('[name="' + inputName + '"]').parent();
+            $('[name="' + inputName + '"]').remove();
+            $('[data-preview="' + inputName + '"]').remove();
+            $(parent).append(`
+                <div class="preview-container mt-2 p-3 border border-gray-300 rounded-lg bg-gray-50" data-preview="${inputName}">
+                    <span class="block text-sm font-medium text-gray-700">ไฟล์ที่อัพโหลด:</span>
+                    <a href="${fileUrl}" target="_blank" rel="noopener noreferrer" class="mt-2 inline-flex items-center text-sm font-medium text-blue-600 hover:underline" data-for="${inputName}">
+                        <i class="fa fa-file-alt text-blue-600 mr-2"></i>
+                        เปิดดูไฟล์
+                    </a>
+                </div>
+            `);
+
+        }
+
+        function showPreview(src, type = 'image') {
+            if (type === 'image') {
+                Swal.fire({
+                    imageUrl: src,
+                    imageAlt: 'File Preview',
+                    showCloseButton: true,
+                    showConfirmButton: false,
+                });
+            } else if (type === 'pdf') {
+                const modal = document.createElement('div');
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                modal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                modal.style.display = 'flex';
+                modal.style.justifyContent = 'center';
+                modal.style.alignItems = 'center';
+                modal.style.zIndex = '1000';
+
+                const iframe = document.createElement('iframe');
+                iframe.src = src;
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.border = 'none';
+                iframe.style.borderRadius = '8px';
+
+                const closeButton = document.createElement('button');
+                closeButton.textContent = 'Close';
+                closeButton.style.position = 'absolute';
+                closeButton.style.top = '60px';
+                closeButton.style.right = '20px';
+                closeButton.style.padding = '10px 20px';
+                closeButton.style.backgroundColor = '#ff4d4d';
+                closeButton.style.color = '#fff';
+                closeButton.style.border = 'none';
+                closeButton.style.borderRadius = '5px';
+                closeButton.style.cursor = 'pointer';
+                closeButton.style.fontSize = '16px';
+
+                closeButton.addEventListener('click', () => {
+                    document.body.removeChild(modal);
+                });
+
+                modal.appendChild(iframe);
+                modal.appendChild(closeButton);
+                document.body.appendChild(modal);
+            }
+        }
+    </script>
+    <script>
+
+        const processCounter = {
+            increment() {
+                const count = (parseInt(localStorage.getItem('processCount') || '0') + 1);
+                localStorage.setItem('processCount', count.toString());
+                if (count === 1) NProgress.start();
+            },
+            decrement() {
+                const count = Math.max(0, (parseInt(localStorage.getItem('processCount') || '0') - 1));
+                count > 0 ? localStorage.setItem('processCount', count.toString()) : localStorage.removeItem('processCount');
+                if (count === 0) NProgress.done();
+            }
+        };
+        function callScript({ func, params, onSuccess, onFailure }) {
+            console.log("🚀 ~ callScript ~ func:", func)
+            processCounter.increment();
+
+            const handleSuccess = (result) => {
+                processCounter.decrement();
+                onSuccess?.(result);
+            };
+
+            const handleFailure = (error) => {
+                processCounter.decrement();
+                onFailure?.(error);
+            };
+
+            $.post('https://script.google.com/macros/s/AKfycby4q1M2lZnOv_rnhUJDDTlezGQHZ3X0RYoBZpSrv0VFtG9_UiheAW3JaaMe-kkrjt5V/exec', { func: func, ...params })
+                .done(handleSuccess)
+                .fail(handleFailure);
+        }
+        async function uploadToGoogleDrive(applicationId, tempFiles) {
+            const f = tempFiles[0];
+            if (f.files.length == 0) {
+                return []
+            }
+            Swal.fire({
+                icon: 'info',
+                title: 'กำลังอัพโหลดไฟล์',
+                html: `
+                    <div class="w-full">
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-medium text-gray-700">ความคืบหน้าทั้งหมด</span>
+                                <span id="overallPercent" class="text-sm font-bold text-blue-600">0%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden shadow-inner">
+                                <div id="overallProgress" class="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-300 ease-out" style="width: 0%"></div>
+                            </div>
+                            <div class="mt-2 text-xs text-gray-500 text-center">
+                                <span id="uploadStatus">กำลังเตรียมไฟล์...</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2 text-base max-h-48 overflow-y-auto" id="progress"></div>
+                    </div>
+                `,
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                background: '#ffffff',
+                color: '#1f2937',
+                iconColor: '#3b82f6',
+                customClass: {
+                    popup: 'rounded-3xl shadow-2xl',
+                    title: 'text-gray-900 font-bold',
+                    htmlContainer: 'text-gray-600'
+                },
+                didOpen: () => {
+                    Swal.showLoading()
+                },
+            })
+
+            const { token, folderId } = await getDownloadToken(applicationId);
+
+            let file = await new Promise((resolve, reject) => {
+                let length = f.files.length;
+                let count = 0;
+                let uploadfiles = [];
+                let totalProgress = 0;
+
+                const updateOverallProgress = () => {
+                    const percent = Math.round(totalProgress / length);
+                    $('#overallProgress').css('width', percent + '%');
+                    $('#overallPercent').text(percent + '%');
+                    $('#uploadStatus').text(`กำลังอัพโหลด ${count} จาก ${length} ไฟล์`);
+                };
+
+                [...f.files].forEach((file, i) => {
+                    let fr = new FileReader();
+                    fr.fileName = file.name;
+                    fr.fileSize = file.size;
+                    fr.fileType = file.type;
+                    fr.readAsArrayBuffer(file);
+                    fr.onload = e => {
+                        var id = "p" + ++i;
+                        var div = $("<div>", { class: 'text-xs text-gray-700 truncate px-2 py-1 bg-gray-50 rounded-lg' });
+                        div.attr("id", id);
+                        $("#progress").append(div);
+                        $('#' + id).html('<span class="text-blue-500">กำลังเตรียม...</span> <span class="text-gray-600">' + fr.fileName + '</span>')
+
+                        let fileProgress = 0;
+
+                        const f = e.target;
+                        const resource = {
+                            fileName: f.fileName,
+                            fileSize: f.fileSize,
+                            fileType: f.fileType,
+                            fileBuffer: f.result,
+                            accessToken: token,
+                            folderId: folderId,
+                            fields: "id",
+                        };
+                        const ru = new ResumableUploadToGoogleDrive();
+                        ru.Do(resource, function (res, err) {
+                            if (err) {
+                                console.log(err);
+                                return;
+                            }
+                            console.log(res);
+                            let msg = "";
+                            if (res.status == 'start' || res.status == 'getLocation' || res.status == 'initialize') {
+                                msg = '<i class="fas fa-cloud-upload-alt text-blue-500 text-base"></i> <span class="text-gray-700">กำลังเตรียมอัพโหลด</span> <span class="text-gray-500 truncate">' + f.fileName + '</span>';
+                            }
+                            else if (res.status == "Uploading") {
+                                const percent = Math.round((res.progressNumber.current / res.progressNumber.end) * 100);
+                                totalProgress = totalProgress - fileProgress + percent;
+                                fileProgress = percent;
+                                updateOverallProgress();
+                                msg = '<i class="fas fa-hourglass-half text-orange-500 text-base"></i> <span class="text-gray-700">กำลังอัพโหลด</span> <span class="font-semibold text-orange-600 truncate">' + percent + '%</span> <span class="text-gray-500">(' + f.fileName + ')</span>';
+                            } else {
+                                msg = '<i class="fas fa-check-circle text-green-500 text-base"></i> <span class="text-green-600 font-medium">อัพโหลดสำเร็จ</span> <span class="text-gray-500 truncate">(' + f.fileName + ')</span>';
+                            }
+
+                            if (res.status == "Done") {
+                                totalProgress = totalProgress - fileProgress + 100;
+                                fileProgress = 100;
+                                count++;
+                                updateOverallProgress();
+                                uploadfiles.push({
+                                    name: f.fileName,
+                                    id: res.result.id
+                                });
+                                if (uploadfiles.length == length) {
+                                    $('#uploadStatus').text('อัพโหลดเสร็จสมบูรณ์!').addClass('text-green-600 font-semibold');
+                                    resolve(uploadfiles);
+                                }
+                            }
+
+                            $('#' + id).html(msg)
+                        });
+                    };
+                });
+            });
+            return { files: file, folderId: folderId };
+        }
+
+        function getDownloadToken(applicationId) {
+            console.log("🚀 ~ getDownloadToken ~ applicationId:", applicationId)
+            return new Promise((resolve, reject) => {
+                callScript({
+                    func: 'getDownloadToken',
+                    params: {
+                        applicationId: applicationId
+                    },
+                    onSuccess: (response) => {
+                        console.log('Received download token:', response);
+                        resolve(response);
+                    },
+                    onFailure: (error) => {
+                        console.error('Error getting download token:', error);
+                        reject(error);
+                    }
+                });
+            });
+        }
+    </script>
+    <script>
+        var pdfDoc
+        var PDFDocument = PDFLib.PDFDocument;
+        var StandardFonts = PDFLib.StandardFonts;
+        var form_pdf_bytes, font_bytes, applicant_signature_bytes, officer_signature_bytes, portrait_photo_bytes;
+        async function generatePDF() {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const pdfBytes = await fillPDFForm();
+                    const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+                    resolve(pdfDataUri);
+                } catch (error) {
+                    console.error('Error generating PDF:', error);
+                    reject(error);
+                }
+            });
+        }
+        async function fillPDFForm() {
+            await initPDFGeneration();
+            if (!pdfDoc) pdfDoc = await PDFDocument.load(form_pdf_bytes)
+            pdfDoc.registerFontkit(fontkit);
+            var form = pdfDoc.getForm()
+            const sarabun = await pdfDoc.embedFont(font_bytes, { subset: true })
+            const symbol = await pdfDoc.embedFont(StandardFonts.ZapfDingbats, { subset: true })
+
+            // embed images
+            const applicant_signature_image = applicant_signature_bytes ? await embedImage(applicant_signature_bytes, 'png') : null
+            const officer_signature_image = officer_signature_bytes ? await embedImage(officer_signature_bytes, 'png') : null
+            const portrait_photo_image = await embedImage(portrait_photo_bytes, $('a[data-for="portrait_photo"]').attr('data-type'))
+            const setChecked = (textFieldName) => {
+                let textField = form.getTextField(textFieldName)
+                textField.setText('✓')
+                textField.updateAppearances(symbol)
+            }
+            let textField
+            switch ($('input[name="delivery_address_type"]:checked').val()) {
+                case 'ตามที่อยู่ตามทะเบียนบ้าน':
+                    setChecked('delivery_address_type[1]')
+                    break;
+                case 'ตามที่อยู่ปัจจุบัน':
+                    setChecked('delivery_address_type[2]')
+                    break;
+                case 'ตามที่อยู่ร้าน / สถานประกอบการ':
+                    setChecked('delivery_address_type[3]')
+                    break;
+            }
+
+            switch ($('input[name="health_status"]:checked').val()) {
+                case 'ร่างกายครบ 32':
+                    setChecked('health_status[1]')
+                    break;
+                case 'มีโรคประจำตัว':
+                    setChecked('health_status[2]')
+                    break;
+                case 'ร่างกายไม่ครบ 32':
+                    setChecked('health_status[3]')
+                    break;
+            }
+
+            $('input[name="expertise"]:checked').each(function () {
+                if (this.value === 'อื่นๆ') return;
+                switch (this.value.trim()) {
+                    case 'กลุ่มกุญแจบ้าน':
+                        setChecked('expertise[1]')
+                        break;
+                    case 'กลุ่มกุญแจรถยนต์':
+                        setChecked('expertise[2]')
+                        break;
+                    case 'กลุ่มกุญแจมอเตอร์ไซด์':
+                        setChecked('expertise[3]')
+                        break;
+                    case 'กลุ่มทำกุญแจดอกใหม่':
+                        setChecked('expertise[4]')
+                        break;
+                    case 'รีโมทรถยนต์ / อิมโมบิไลเซอร์':
+                        setChecked('expertise[5]')
+                        break;
+                }
+            });
+
+            if ($('input[name="address_registration"]').val() != "") {
+                setChecked('has_address_registration')
+            }
+            if ($('input[name="address_current"]').val() != "") {
+                setChecked('has_address_current')
+            }
+            if ($('input[name="address_business"]').val() != "") {
+                setChecked('has_address_business')
+            }
+
+            if ($('input[name="health_chronic_detail"]').val() != "") {
+                setChecked('health_status[2]')
+            }
+            if ($('input[name="health_disability_detail"]').val() != "") {
+                setChecked('health_status[3]')
+            }
+
+            if ($('input[name="expertise_others_text"]').val() != "") {
+                setChecked('expertise[6]')
+            }
+
+            if ($('a[data-for="copy_id_card"]').length > 0) {
+                setChecked('has_copy_id_card')
+            }
+            if ($('a[data-for="copy_house_reg"]').length > 0) {
+                setChecked('has_copy_house_reg')
+            }
+
+            if ($('a[data-for="portrait_photo"]').length > 0) {
+                setChecked('has_portrait_photo')
+                form.getTextField('portrait_photo').setImage(portrait_photo_image)
+            }
+            if ($('a[data-for="occupation_proof"]').length > 0) {
+                setChecked('has_occupation_proof')
+            }
+
+            // fill form fields
+            form.getTextField('first_name').setText(($('input[name="prefix"]').val() || '') + ($('input[name="first_name"]').val() || ''))
+            form.getTextField('last_name').setText($('input[name="last_name"]').val() || '')
+            form.getTextField('age').setText($('input[name="age"]').val() || '')
+            form.getTextField('date_of_birth').setText(convertToThaiDate($('input[name="date_of_birth"]').val() || ''))
+            form.getTextField('id_card_number').setText(formatThaiIDCard($('input[name="id_card_number"]').val() || ''))
+            form.getTextField('nationality').setText($('input[name="nationality"]').val() || '')
+            form.getTextField('religion').setText($('input[name="religion"]').val() || '')
+            form.getTextField('address_registration').setText($('textarea[name="address_registration"]').val() || '')
+            form.getTextField('address_current').setText($('textarea[name="address_current"]').val() || '')
+            form.getTextField('address_business').setText($('textarea[name="address_business"]').val() || '')
+            form.getTextField('mobile_phone').setText($('input[name="mobile_phone"]').val() || '')
+            form.getTextField('email').setText($('input[name="email"]').val() || '')
+            form.getTextField('occupation').setText($('input[name="occupation"]').val() || '')
+            form.getTextField('business_name').setText($('input[name="business_name"]').val() || '')
+            form.getTextField('business_location_details').setText($('input[name="business_location_details"]').val() || '')
+            form.getTextField('business_phone').setText($('input[name="business_phone"]').val() || '')
+            form.getTextField('health_chronic_detail').setText($('input[name="health_chronic_detail"]').val() || '')
+            form.getTextField('health_disability_detail').setText($('input[name="health_disability_detail"]').val() || '')
+            form.getTextField('years_experience').setText($('input[name="years_experience"]').val() || '')
+            form.getTextField('expertise_other').setText($('input[name="expertise_others_text"]').val() || '')
+            form.getTextField('beneficiary_name').setText($('input[name="beneficiary_name"]').val() || '')
+            form.getTextField('beneficiary_phone').setText($('input[name="beneficiary_phone"]').val() || '')
+            form.getTextField('beneficiary_relationship').setText($('input[name="beneficiary_relationship"]').val() || '')
+            form.getTextField('beneficiary_id_card').setText(formatThaiIDCard($('input[name="beneficiary_id_card"]').val() || ''))
+            form.getTextField('beneficiary_address').setText($('textarea[name="beneficiary_address"]').val() || '')
+            form.getTextField('officer_id').setText($('input[name="officer_id"]').val() || '')
+            form.getTextField('approval_date').setText(convertToThaiDate($('input[name="approval_date"]').val() || ''))
+
+            let [submit_day, submit_month, submit_year] = $('input[name="submission_date"]').val().split('-').reverse().map(num => parseInt(num, 10));
+            submit_year += 543; // Convert to Thai year
+            form.getTextField('submit_date').setText(submit_day.toString().padStart(2, '0'));
+            form.getTextField('submit_month').setText(submit_month.toString().padStart(2, '0'));
+            form.getTextField('submit_year').setText(submit_year.toString());
+
+            let [approval_day, approval_month, approval_year] = $('input[name="approval_date"]').val().split('-').reverse().map(num => parseInt(num, 10));
+            approval_year += 543; // Convert to Thai year
+            form.getTextField('approve_date').setText(approval_day.toString().padStart(2, '0'));
+            form.getTextField('approve_month').setText(approval_month.toString().padStart(2, '0'));
+            form.getTextField('approve_year').setText(approval_year.toString());
+
+            // set signatures
+            if (applicant_signature_image && applicant_signature_image !== null) {
+                console.log("🚀 ~ generatePDF ~ applicant_signature_image:", applicant_signature_image)
+                form.getTextField('applicant_signature').setImage(applicant_signature_image)
+            }
+            if (officer_signature_image && officer_signature_image !== null) {
+                form.getTextField('officer_signature').setImage(officer_signature_image)
+            }
+            form.updateFieldAppearances(sarabun);
+            form.flatten()
+            var pdfBytes = await pdfDoc.save()
+            return pdfBytes;
+        }
+
+        async function initPDFGeneration() {
+            return new Promise((resolve, reject) => {
+                // form_pdf_bytes = await fetch('../teampm/formDecom v-2.pdf').then(res => res.arrayBuffer())
+                // font_bytes = await fetch('../teampm/THSarabun.ttf').then(res => res.arrayBuffer())
+                Promise.all([
+                    fetch('./application_template.pdf').then(res => res.arrayBuffer()),
+                    fetch('./THSarabun.ttf').then(res => res.arrayBuffer()),
+                    getSignatureImageAsArrayBuffer(applicantSignaturePad),
+                    getSignatureImageAsArrayBuffer(officerSignaturePad),
+                    fetch($('a[data-for="portrait_photo"]').attr('href')).then(res => {
+                        const contentType = isApproved ? res.headers.get('Content-Type') : $('a[data-for="portrait_photo"]').attr('data-type');
+                        return res.arrayBuffer().then(buffer => {
+                            // Store the content type as a data attribute for later use
+                            $('a[data-for="portrait_photo"]').attr('data-type', contentType.split('/')[1]);
+                            return buffer;
+                        });
+                    })
+                ]).then(([pdfBytes, fontBytes, applicantSignatureBytes, officerSignatureBytes, portraitPhotoBytes]) => {
+                    form_pdf_bytes = pdfBytes;
+                    font_bytes = fontBytes;
+                    applicant_signature_bytes = applicantSignatureBytes;
+                    officer_signature_bytes = officerSignatureBytes;
+                    portrait_photo_bytes = portraitPhotoBytes;
+                    resolve();
+                }).catch(err => {
+                    console.error('Error loading PDF or font:', err);
+                    reject(err);
+                });
+            });
+        }
+
+        function getSignatureImageAsArrayBuffer(signaturePad) {
+            return new Promise((resolve, reject) => {
+                if (signaturePad.isEmpty()) {
+                    resolve(null);
+                } else {
+                    const dataURL = signaturePad.toDataURL('image/png');
+                    const base64 = dataURL.split(',')[1];
+                    const blob = base64ToBlob(base64, 'image/png');
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        resolve(reader.result);
+                    };
+                    reader.onerror = (error) => {
+                        reject(error);
+                    };
+                    reader.readAsArrayBuffer(blob);
+                }
+            });
+        }
+        function base64ToBlob(base64, type) {
+            {
+                let binary = atob(base64)
+                let array = []
+                for (let i = 0; i < binary.length; i++) {
+                    array.push(binary.charCodeAt(i))
+                }
+                return new Blob([new Uint8Array(array)], { type: type })
+            }
+        }
+
+        async function embedImage(bytes, type) {
+            console.log("🚀 ~ embedImage ~ type:", type)
+            console.log("🚀 ~ embedImage ~ bytes:", bytes)
+            let e_img
+            if (type == 'png') {
+                e_img = await pdfDoc.embedPng(bytes)
+            } else if (type == 'jpg') {
+                e_img = await pdfDoc.embedJpg(bytes)
+            } else if (type == 'jpeg') {
+                e_img = await pdfDoc.embedJpg(bytes)
+            }
+            return e_img
+        }
+
+        function convertToThaiDate(dateString) {
+            try {
+                if (!dateString || dateString.trim() === '') return '';
+                let [year, month, day] = dateString.split('-').map(num => parseInt(num, 10));
+                if (isNaN(year) || isNaN(month) || isNaN(day)) {
+                    return '';
+                }
+                year += 543; // Convert to Buddhist Era
+                return `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}`;
+            } catch (error) {
+                console.error("Error converting date:", error);
+                return '';
+            }
+        }
+
+        function formatThaiIDCard(id) {
+            if (!id || id.trim() === '') return '';
+            try {
+                // Convert to string and remove all non-digit characters
+                let digits = String(id).replace(/\D/g, '');
+
+                // Limit to 13 digits max
+                if (digits.length > 13) {
+                    digits = digits.substring(0, 13);
+                }
+
+                // Apply formatting step-by-step
+                let formatted = digits
+                    .replace(/^(\d{1})(\d)/, '$1-$2')           // X-
+                    .replace(/^(\d{1})-(\d{4})(\d)/, '$1-$2-$3') // X-XXXX-
+                    .replace(/^(\d{1})-(\d{4})-(\d{5})(\d)/, '$1-$2-$3-$4') // X-XXXX-XXXXX-
+                    .replace(/^(\d{1})-(\d{4})-(\d{5})-(\d{2})(\d)/, '$1-$2-$3-$4-$5'); // X-XXXX-XXXXX-XX-X
+
+                return formatted;
+            } catch (error) {
+                console.error("Error formatting Thai ID:", error);
+                return '';
+            }
+        }
+    </script>
+</body>
+
+</html>
