@@ -1259,11 +1259,27 @@
                             title: 'text-gray-900 font-bold',
                         }
                     }).then(() => {
-                        // show pdf download link
-                        populatedApplicationData({
-                            ...formData,
-                            is_approved: formData.application_status === 'approved'
-                        });
+                        let isApproved = formData.application_status === 'approved';
+                        const offCanvasEl = document.getElementById('officer_signature');
+                        officerSignaturePad.off();
+                        if (data.is_approved === true) {
+                            $('button[type="reset"]').parent().html(`
+                    <p class="text-xl text-gray-600">
+                        <i class="fa fa-check-circle text-green-600 mr-2"></i>
+                        ใบสมัครนี้ได้รับการอนุมัติแล้ว</p>
+                    <a href="https://drive.google.com/uc?export=view&id=${data.approval_pdf_url.split('/')[5]}&openExternalBrowser=true" id="download_pdf" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                        ดาวน์โหลดไฟล์ PDF
+                    </a>
+                `)
+                        } else {
+                            $('button[type="reset"]').parent().html(`
+                    <p class="text-xl text-gray-600">
+                        <i class="fa fa-times-circle text-red-600 mr-2"></i>
+                        ใบสมัครนี้ได้รับการปฏิเสธแล้ว</p>
+                `);
+                        }
+                        $('#clear_officer_signature').addClass('hidden');
+                        $('#for_officer').find('input, select, textarea').prop('disabled', true);
                     });
                 })
                 .catch((error) => {
@@ -1320,7 +1336,6 @@
 
             // $('#memberForm')[0].reset();
             if (!data) return;
-            console.log("🚀 ~ data:", data)
             for (const [key, value] of Object.entries(data)) {
                 const field = document.getElementsByName(key)[0];
                 if (field) {
