@@ -1320,6 +1320,7 @@
 
             // $('#memberForm')[0].reset();
             if (!data) return;
+            console.log("🚀 ~ data:", data)
             for (const [key, value] of Object.entries(data)) {
                 const field = document.getElementsByName(key)[0];
                 if (field) {
