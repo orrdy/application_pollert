@@ -1239,6 +1239,7 @@
                             pdf_data_url: pdf_data_url
                         },
                         onSuccess: (result) => {
+                            console.log("🚀 ~ proceedSubmitApproval ~ result:", result)
                             formData.approval_pdf_url = result.pdf_url;
                             resolve();
                         },
